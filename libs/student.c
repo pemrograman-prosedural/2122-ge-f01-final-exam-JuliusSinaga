@@ -49,11 +49,13 @@ struct student_t move_student(struct student_t _student, struct dorm_t *_dorm) {
 }
 
 
-struct student_t leave_student(struct student_t *_student) {
-    struct student_t student = *_student;
-    student.dorm->residents_num--;
-    strcpy(student.dorm->name, "left");
-    return student;
+struct student_t leave_student(struct student_t *_student, struct dorm_t *_dorm, int _index, int _indexstu) {
+    for (int i = 0 ; i < _indexstu; i++) {
+        if (i == _index) {
+            strcpy(_student[i].dormName, "left");
+        }
+    }
+    return _student[_index];
 }
 
 void print_student(struct student_t *_student, int _index) {
@@ -86,6 +88,8 @@ void print_student_detail(struct student_t *_student, int _index) {
         // Memeriksa nilai asrama
         if (_student[i].dorm == NULL) {
             printf("%s|%s|%s|%s|unassigned\n", _student[i].id, _student[i].name, _student[i].year, _gender);
+        } else if (strcmp(_student[i].dormName, "left") == 0) {
+            printf("%s|%s|%s|%s|left\n", _student[i].id, _student[i].name, _student[i].year, _gender);
         } else {
             printf("%s|%s|%s|%s|%s\n", _student[i].id, _student[i].name, _student[i].year, _gender,  _student[i].dorm->name);
         }

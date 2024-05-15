@@ -100,13 +100,11 @@ int main(int _argc, char **_argv)
                 continue;
             } else if (strcmp(temp, "student-leave") == 0) {
                 temp = strtok(NULL, "#");
-                for(int i = 0; i < indexStudent; i++) {
-                    // Mendeteksi perbandingan id
-                    if (strcmp(student[i].id, temp) == 0){
-                        student[i] = leave_student(&student[i]);
-                    } 
-                
-                }
+                    for (int j = 0; j < indexStudent; j++) {
+                        if ((strcmp(student[j].id, temp) == 0) && (student[j].dorm != NULL)) {
+                            student[j] = leave_student(student, dorm, j, indexStudent);
+                        } 
+                    }
             continue;
             }
         }
