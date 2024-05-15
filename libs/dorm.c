@@ -30,7 +30,7 @@ void print_dorm(struct dorm_t *_dorm, int _index) {
         } else {
             _gender = "female";
         }
-        printf("%s|%d|%s", _dorm[i].name, _dorm[i].capacity, _gender);
+        printf("%s|%d|%s\n", _dorm[i].name, _dorm[i].capacity, _gender);
     }
 }
 
@@ -45,6 +45,6 @@ void print_dorm_detail(struct dorm_t *_dorm, int _index) {
         } else {
             _gender = "female";
         }
-        printf("%s|%d|%s|%d", _dorm[i].name, _dorm[i].capacity, _gender, _dorm[i].residents_num);
+        printf("%s|%d|%s|%d\n", _dorm[i].name, _dorm[i].capacity, _gender, _dorm[i].residents_num);
     }
 }

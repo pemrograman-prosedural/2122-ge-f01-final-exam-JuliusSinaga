@@ -16,7 +16,7 @@ int main(int _argc, char **_argv)
 
     // Deklarasi Variabel
     char line[100], name[40], id[12], year[5];
-    unsigned short capacity, residunt_num;
+    unsigned short capacity;
     int indexStudent = 0, indexDorm = 0;
     enum gender_t gender;
 
@@ -69,45 +69,45 @@ int main(int _argc, char **_argv)
                     gender = GENDER_FEMALE;
                 }
                 // Memanggil fungsi
-                student[indexStudent] = create_student(name, capacity, year, gender);
+                student[indexStudent] = create_student(id, name, year, gender);
                 // Index bertambah
                 indexStudent++;
             } else if (strcmp(temp, "assign-student") == 0) {
                 temp = strtok(NULL, "#");
                 strcpy(id, temp);
-                temp = strcpy(NULL, "#");
+                temp = strtok(NULL, "#");
                 strcpy(name, temp);
                 for(int i = 0; i < indexDorm; i++) {
                     for (int j =0; j < indexStudent; j++) {
-                        if ((strcmp(student[j].id, id) == 0) && (strcmp(dorm[i].name, name) == 0)) {
-                            student[j] = assign_student(student[j], dorm[i]);
+                        if ((strcmp(student[j].id, id) == 0) && (strcmp(dorm[i].name, name) == 0) && (dorm[i].gender == student[j].gender)) {
+                            student[j] = assign_student(student[j], &dorm[i]);
                         }
                     }
                 }
+                continue;
             } else if (strcmp(temp, "move-student") == 0) {
                 temp = strtok(NULL, "#");
                 strcpy(id, temp);
-                temp = strcpy(NULL, "#");
+                temp = strtok(NULL, "#");
                 strcpy(name, temp);
                 for(int i = 0; i < indexDorm; i++) {
                     for (int j =0; j < indexStudent; j++) {
-                        if ((strcmp(student[j].id, id) == 0) && (strcmp(dorm[i].name, name) == 0)) {
-                            student[j] = move_student(student[j], dorm[i]);
+                        if ((strcmp(student[j].id, id) == 0) && (strcmp(dorm[i].name, name) == 0) && (dorm[i].gender == student[j].gender)) {
+                            student[j] = move_student(student[j], &dorm[i]);
                         }
                     }
                 }
+                continue;
             } else if (strcmp(temp, "student-leave") == 0) {
-                                temp = strtok(NULL, "#");
-                strcpy(id, temp);
-                temp = strcpy(NULL, "#");
-                strcpy(name, temp);
-                for(int i = 0; i < indexDorm; i++) {
-                    for (int j =0; j < indexStudent; j++) {
-                        if ((strcmp(student[j].id, id) == 0) && (strcmp(dorm[i].name, name) == 0)) {
-                            student[j] = leave_student(student[j], dorm[i]);
-                        }
-                    }
+                temp = strtok(NULL, "#");
+                for(int i = 0; i < indexStudent; i++) {
+                    // Mendeteksi perbandingan id
+                    if (strcmp(student[i].id, temp) == 0){
+                        student[i] = leave_student(&student[i]);
+                    } 
+                
                 }
+            continue;
             }
         }
         
